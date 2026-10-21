@@ -1,0 +1,8 @@
+fly.toml
+.git
+node_modules
+dist
+public/models
+public/mediapipe
+tests/e2e/artifacts
+tests/e2e/fixtures
