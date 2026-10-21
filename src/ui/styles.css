@@ -535,12 +535,103 @@ input[type='range'] {
 }
 
 @media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
+  /* Stacked layout: the whole page scrolls, instead of two cramped scroll panes. */
+  .app:not(.ui-hidden) {
+    height: auto;
+    min-height: 100%;
+  }
+  .app:not(.ui-hidden) .layout {
+    display: block;
+  }
+  .stage-wrap {
+    overflow: visible;
   }
   .panel {
+    overflow: visible;
     border-left: none;
     border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  .brand {
+    font-size: 16px;
+  }
+  /* One swipeable row of chips rather than a tall wrapped block. */
+  .stats {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-left: 0;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .stats::-webkit-scrollbar {
+    display: none;
+  }
+  .chip.wide {
+    max-width: 200px;
+  }
+  .stage-wrap {
+    padding: 10px 12px;
+  }
+  .panel {
+    padding: 4px 12px 24px;
+  }
+
+  /* The 16:9 preview is too short to hold the start/error card on a phone, and
+     overflow:hidden clipped its buttons. While a card is up, let it size the stage. */
+  .stage:has(> .overlay:not(.subtle)) {
+    aspect-ratio: auto;
+    min-height: 56vw;
+    max-height: none;
+  }
+  .stage > .overlay:not(.subtle) {
+    position: relative;
+    min-height: 56vw;
+    padding: 12px;
+  }
+  .card {
+    padding: 18px 16px;
+  }
+  .card h2 {
+    font-size: 20px;
+  }
+  .card p {
+    margin: 8px 0;
+    font-size: 13px;
+  }
+  .card .row button {
+    flex: 1 1 140px;
+    padding: 11px 12px;
+  }
+
+  .effect-btn {
+    min-height: 0;
+  }
+  /* Taller tap targets for sliders and swatches. */
+  input[type='range'] {
+    height: 28px;
+  }
+  .swatch {
+    height: 34px;
+  }
+}
+
+/* Touch devices have no keyboard shortcuts to advertise. */
+@media (hover: none) and (pointer: coarse) {
+  .shortcuts,
+  button kbd,
+  .effect-btn .key {
+    display: none;
+  }
+  .effect-btn {
+    grid-template-columns: 1fr;
   }
 }
 
